@@ -8,6 +8,8 @@ set managementUser to "_LastMile"
 set managementPass to (do shell script "uuidgen")
 set expirationDate to (do shell script "date -v+2d +\"%Y-%m-%d %H:%M:%S\"")
 
+--Set preference for virtual machine
+do shell script "defaults write /Library/Preferences/com.jamfsoftware.jamf is_virtual_machine -bool false" with administrator privileges
 
 --Subroutines that are called later in the script start here.
 
