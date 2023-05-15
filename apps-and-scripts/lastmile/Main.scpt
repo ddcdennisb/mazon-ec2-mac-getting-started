@@ -8,9 +8,6 @@ set managementUser to "_LastMile"
 set managementPass to (do shell script "uuidgen")
 set expirationDate to (do shell script "date -v+2d +\"%Y-%m-%d %H:%M:%S\"")
 
---Set preference for virtual machine
-do shell script "defaults write /Library/Preferences/com.jamfsoftware.jamf is_virtual_machine -bool false" with administrator privileges
-
 --Subroutines that are called later in the script start here.
 
 --For adding "https://" and terminating "/" to URLs.
@@ -100,6 +97,11 @@ on jamfEnrollmentProfile(jamfInvitationID, jamfEnrollmentURL)
 end jamfEnrollmentProfile
 
 --Subroutines end here, main script runtime begins.
+
+--Set preference for virtual machine
+do shell script "defaults write /Library/Preferences/com.jamfsoftware.jamf is_virtual_machine -bool false" with administrator privileges
+set instanceID to (my awsMD("instance-id"))
+do shell script "scutil --set ComputerName " & instance-ID with administrator privileges
 
 try
 	set enrollmentCLI to (do shell script "/usr/bin/profiles status -type enrollment | awk '/MDM/' | grep 'enrollment: Yes' ")
