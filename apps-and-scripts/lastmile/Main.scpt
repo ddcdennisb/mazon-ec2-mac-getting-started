@@ -101,9 +101,9 @@ end jamfEnrollmentProfile
 --Set preference for virtual machine
 do shell script "defaults write /Library/Preferences/com.jamfsoftware.jamf is_virtual_machine -bool false" with administrator privileges
 set instanceID to (my awsMD("instance-id"))
-do shell script "scutil --set ComputerName " & instance-ID with administrator privileges
-do shell script "scutil --set HostName " & instance-ID with administrator privileges
-do shell script "scutil --set LocalHostName " & instance-ID with administrator privileges
+do shell script "scutil --set ComputerName " & instanceID with administrator privileges
+do shell script "scutil --set HostName " & instanceID with administrator privileges
+do shell script "scutil --set LocalHostName " & instanceID with administrator privileges
 
 try
 	set enrollmentCLI to (do shell script "/usr/bin/profiles status -type enrollment | awk '/MDM/' | grep 'enrollment: Yes' ")
